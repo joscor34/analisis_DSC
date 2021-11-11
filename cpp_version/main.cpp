@@ -2,7 +2,6 @@
 #include <cmath>
 #include <cstdlib>
 #include <fstream>
-#include <string>
 
 #define N 5
 
@@ -15,7 +14,7 @@ int main()
   float dx[N];
   float ddx[N];
   float resultados[N];
-  int tam, k = 1, pol;
+  int tam, k = 1;
   float n = 0, x, a;
   ifstream datos;
   //Crear un archivo txt con los datos experimentales y nombrarlo tabla.
@@ -36,7 +35,7 @@ int main()
   for (int i = 0; i < tam; i++)
     tabla[i] = new float[tam];
 
-  datos.open("tabla.txt");
+  datos.open("Datos_DSC.txt");
   if (!datos)
   {
     cerr << "could not open file!" << endl;
@@ -49,8 +48,7 @@ int main()
   }
 
   //Tamanio polinomio
-  cout << "\nDe que tamanio desea su polinomio?\n";
-  cin >> pol;
+  int pol = 4;
 
   float **X = new float *[tam];
   for (int i = 0; i < tam; i++)
@@ -207,27 +205,25 @@ int main()
         A[i][j] += Xki[i][k] * YX[k][j];
       }
     }
-
   cout << "\n\nLa ecuacion es: \n";
   for (int i = 0; i < pol + 1; i++)
   {
     cout << endl;
     for (int j = 0; j < 1; j++)
     {
-      cout << A[i][j];
-      // cout << A[j];
       resultados[i] = A[i][j];
+      cout << A[i][j];
       cout << "\t";
-      cout << "x^" << i << endl;
+      cout << "x^" << i;
     }
   }
+  cout << endl;
   cout << "resultados" << endl;
-  for (int i = 0; i < 5; i++)
-  {
-    cout << resultados[i] << ", ";
-  }
-
-  //deriva(resultados, 5, dx);
+  // for (int i = 0; i < 5; i++)
+  // {
+  //   cout << resultados[i] << ", ";
+  // }
+  deriva(resultados, 5, dx, ddx);
   return 0;
 }
 
@@ -238,13 +234,16 @@ void deriva(float a[], int n, float da[], float dda[])
     cout << "----------------------" << endl;
     cout << "a[" << i << "]=" << a[i] << " * " << i << " = " << a[i] * i << endl;
     cout << "----------------------" << endl;
-    cout << i << endl;
     da[i] = a[i] * i;
     // cout << da[i - 1] << " ";
   }
-
-  for (int i = 0; i < n; i++)
+  cout << "------ Segunda derivada -------";
+  for (int i = 1; i < n; i++)
   {
-    cout << da[i] << endl;
+
+    cout << "----------------------" << endl;
+    cout << "a[" << i << "]=" << da[i] << " * " << i - 1 << " = " << da[i] * (i - 1) << endl;
+    cout << "----------------------" << endl;
+    // cout << da[i] << endl;
   }
 }

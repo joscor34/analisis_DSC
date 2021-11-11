@@ -1,1 +1,4 @@
 .vscode
+.DS_store
+/cpp_version/MinimosCuadradosChido.cpp
+/cpp_version/minimos.out
